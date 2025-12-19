@@ -59,8 +59,7 @@ jobs:
 
       # 8️⃣ Uploader l’APK comme artifact
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: twa-apk
           path: ./twa-build/outputs/apk/release/*.apk
-
