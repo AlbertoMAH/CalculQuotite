@@ -1,0 +1,5 @@
+{
+  "name": "Quotité Cessible Calculator",
+  "description": "A modern, mobile-friendly application to calculate the transferable portion of a salary (Quotité Cessible) based on income brackets in FCFA.",
+  "requestFramePermissions": []
+}
