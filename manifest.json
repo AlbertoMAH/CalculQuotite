@@ -1,12 +1,14 @@
 
 {
-  "name": "Quotité Cessible",
+  "name": "Quotité Cessible LOA",
   "short_name": "Quotité",
-  "description": "Calculateur de capacité d'emprunt LOA Finance",
-  "start_url": "./",
+  "description": "Calculateur professionnel de capacité d'emprunt",
+  "start_url": "/CalculQuotite/",
+  "scope": "/CalculQuotite/",
   "display": "standalone",
-  "background_color": "#3b82f6",
+  "background_color": "#ffffff",
   "theme_color": "#3b82f6",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "https://cdn-icons-png.flaticon.com/512/5839/5839888.png",

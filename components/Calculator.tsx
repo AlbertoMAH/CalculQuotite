@@ -78,7 +78,7 @@ const Calculator: React.FC = () => {
              </div>
              <div>
                 <h2 className="text-2xl font-black leading-tight tracking-tight">Quotité Cessible</h2>
-                <p className="text-sm font-medium opacity-80">Simulation Financière Rapide</p>
+                <p className="text-sm font-medium opacity-80 uppercase tracking-tighter">LOA Finance Simulator</p>
              </div>
           </div>
         </div>
@@ -102,7 +102,7 @@ const Calculator: React.FC = () => {
           </div>
 
           <div className="space-y-3">
-            <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 ml-2">Mensualité crédits</label>
+            <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 ml-2">Engagements actuels</label>
             <div className="relative group">
               <input 
                 type="text" 
@@ -121,12 +121,12 @@ const Calculator: React.FC = () => {
             <button 
               onClick={handleCalculate}
               disabled={!salaryInput || parseInt(salaryInput) === 0}
-              className="w-full bg-primary text-white py-6 rounded-[1.5rem] font-black text-xl shadow-[0_20px_40px_-10px_rgba(59,130,246,0.4)] active:scale-[0.96] disabled:opacity-50 disabled:active:scale-100 transition-all flex items-center justify-center gap-3 group"
+              className="w-full bg-primary text-white py-6 rounded-[1.5rem] font-black text-xl shadow-[0_20px_40px_-10px_rgba(59,130,246,0.5)] active:scale-[0.96] disabled:opacity-50 disabled:active:scale-100 transition-all flex items-center justify-center gap-3 group"
             >
               Calculer <ChevronRight className="group-hover:translate-x-1 transition-transform" />
             </button>
             <p className="text-center text-[10px] text-slate-400 mt-6 font-medium flex items-center justify-center gap-1 uppercase tracking-widest">
-              <Info size={10} /> Barèmes réglementaires inclus
+              <Info size={10} /> Conforme aux barèmes officiels
             </p>
           </div>
         </div>
@@ -139,33 +139,32 @@ const Calculator: React.FC = () => {
             className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm transition-opacity" 
             onClick={() => setIsSheetOpen(false)} 
           />
-          <div className="relative w-full max-w-lg bg-white rounded-t-[2.5rem] shadow-2xl overflow-hidden flex flex-col max-h-[85vh] transform transition-transform animate-in slide-in-from-bottom duration-300 ease-out">
+          <div className="relative w-full max-w-lg bg-white rounded-t-[2.5rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] transform transition-transform animate-in slide-in-from-bottom duration-300 ease-out">
             <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mt-4 mb-2 shrink-0" />
             
             <div className="p-8 pt-4 flex flex-col overflow-y-auto pb-10">
               <div className="flex justify-between items-center mb-6 sticky top-0 bg-white py-2 z-10">
                 <h3 className="text-xl font-black text-slate-800 flex items-center gap-2">
-                  <CheckCircle2 className="text-secondary" /> Résultat Analyse
+                  <CheckCircle2 className="text-secondary" /> Votre Simulation
                 </h3>
                 <button onClick={() => setIsSheetOpen(false)} className="p-2 bg-slate-100 rounded-full text-slate-400 hover:text-slate-600 transition-colors">
                   <X size={20} />
                 </button>
               </div>
 
-              {/* Lighter, theme-matched results card (Blue Primary) */}
               <div className="bg-primary/10 rounded-[2rem] p-8 text-center shadow-sm border-2 border-primary/20 shrink-0 mb-6">
-                <p className="text-[10px] uppercase font-black tracking-[0.2em] text-primary/70 mb-2">Capacité de remboursement</p>
+                <p className="text-[10px] uppercase font-black tracking-[0.2em] text-primary/70 mb-2">Mensualité disponible</p>
                 <p className="text-4xl font-black text-primary-dark">{CURRENCY_FORMATTER.format(result.finalDebtCap)}</p>
-                <p className="text-xs text-primary/60 mt-2 font-medium italic">Libre après vos engagements</p>
+                <p className="text-xs text-primary/60 mt-2 font-medium italic">Capacité maximale de remboursement</p>
               </div>
 
               <div className="space-y-4 mb-6">
-                <div className="p-5 bg-primary/5 rounded-2xl border border-primary/10 flex items-start gap-4">
+                <div className="p-5 bg-slate-50 rounded-2xl border border-slate-100 flex items-start gap-4">
                   <Tag className="text-primary mt-1" size={20} />
                   <div>
-                    <p className="text-[10px] uppercase font-bold text-slate-400 mb-0.5 tracking-wider">Tranche de salaire</p>
+                    <p className="text-[10px] uppercase font-bold text-slate-400 mb-0.5 tracking-wider">Tranche de revenus</p>
                     <p className="text-lg font-black text-slate-800 leading-none">{result.bracketLabel}</p>
-                    <p className="text-xs text-primary-dark font-bold mt-1">Taux d'endettement max : {(result.rate * 100).toFixed(0)}%</p>
+                    <p className="text-xs text-primary-dark font-bold mt-1">Taux appliqué : {(result.rate * 100).toFixed(0)}%</p>
                   </div>
                 </div>
               </div>
@@ -176,11 +175,11 @@ const Calculator: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-4 mb-8 shrink-0">
                  <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                    <p className="text-[10px] uppercase font-bold text-slate-400 mb-1 tracking-wider">Quotité Max</p>
+                    <p className="text-[10px] uppercase font-bold text-slate-400 mb-1 tracking-wider">Quotité Brute</p>
                     <p className="text-lg font-black text-slate-700">{CURRENCY_FORMATTER.format(result.theoreticalDebtCap)}</p>
                  </div>
                  <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                    <p className="text-[10px] uppercase font-bold text-slate-400 mb-1 tracking-wider">Détention</p>
+                    <p className="text-[10px] uppercase font-bold text-slate-400 mb-1 tracking-wider">Charges</p>
                     <p className="text-lg font-black text-secondary-dark">{CURRENCY_FORMATTER.format(result.existingLoan)}</p>
                  </div>
               </div>
