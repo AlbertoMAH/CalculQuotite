@@ -1,11 +1,9 @@
 
-const CACHE_NAME = 'quotite-v2';
+const CACHE_NAME = 'quotite-v3';
 const ASSETS = [
   './',
   './index.html',
-  './manifest.json',
-  'https://cdn.tailwindcss.com',
-  'https://unpkg.com/@babel/standalone/babel.min.js'
+  './manifest.json'
 ];
 
 self.addEventListener('install', (e) => {

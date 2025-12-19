@@ -5,8 +5,8 @@
   "description": "Calculateur de capacité d'emprunt LOA Finance",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#4f46e5",
-  "theme_color": "#4f46e5",
+  "background_color": "#3b82f6",
+  "theme_color": "#3b82f6",
   "icons": [
     {
       "src": "https://cdn-icons-png.flaticon.com/512/5839/5839888.png",
