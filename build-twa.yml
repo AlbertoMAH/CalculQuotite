@@ -1,0 +1,65 @@
+name: Build TWA APK
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ANDROID_SDK_ROOT: ${{ github.workspace }}/Android
+      PATH: ${{ github.workspace }}/Android/cmdline-tools/cmdline-tools/bin:${PATH}
+
+    steps:
+      # 1️⃣ Récupérer le code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Installer Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # 3️⃣ Installer Bubblewrap
+      - name: Install Bubblewrap CLI
+        run: npm install -g @bubblewrap/cli
+
+      # 4️⃣ Installer JDK 17
+      - name: Setup Java JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # 5️⃣ Installer Android SDK
+      - name: Setup Android SDK
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip wget
+          mkdir -p $ANDROID_SDK_ROOT/cmdline-tools
+          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
+          unzip cmdline-tools.zip -d $ANDROID_SDK_ROOT/cmdline-tools
+          yes | sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.2"
+
+      # 6️⃣ Initialiser le projet Bubblewrap
+      - name: Initialize TWA project
+        run: |
+          bubblewrap init \
+            --manifest=https://albertomah.github.io/CalculQuotite/.well-known/assetlinks.json \
+            --sdk $ANDROID_SDK_ROOT \
+            --no-interactive
+
+      # 7️⃣ Générer l’APK
+      - name: Build TWA APK
+        run: bubblewrap build
+
+      # 8️⃣ Uploader l’APK comme artifact
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: twa-apk
+          path: ./twa-build/outputs/apk/release/*.apk
